@@ -1,4 +1,5 @@
 function setup() {
+
     var socket = io();
     var side = 30;
     var matrix = [];
@@ -8,7 +9,9 @@ function setup() {
     let grassLiveCountElement = document.getElementById('grassLiveCount');
     let grassEaterCountElement = document.getElementById('grassEaterCount');
     let gishCountElement = document.getElementById('gishCount')
+    let gishLiveCountElement = document.getElementById('gishLiveCount');
     let huntCountElement = document.getElementById('huntCount');
+    let huntLiveCountElement = document.getElementById('huntLiveCount');
     let terminatorCountElement = document.getElementById('termCount');
     let tankCountElement = document.getElementById('tankCount');
 
@@ -17,26 +20,35 @@ function setup() {
     function drawCreatures(data) {
 
 
-        let sendData = {
-            matrix: matrix,
-            grassCounter: grassHashiv,
-            grassLiveCounter: grassArr.length,
-            eatCounter: eatHashiv,
-            gishCounter: gishHashiv,
-            huntCounter: huntHashiv,
-            termCounter: termHashiv,
-            tankCounter: tankHashiv,
-            weather: weather,
-        }
-
+        
+            // matrix=data.matrix,
+            // grassCounter=data.grassHashiv,
+            // grassLiveCounter=data.grassArr.length,
+            // eatCounter=data.eatHashiv,
+            // gishCounter=data.gishHashiv,
+            // gishLiveCounter=data.gishArr.length,
+            // huntCounter=data.huntHashiv,
+            // termCounter=data.termHashiv,
+            // tankCounter=data.tankHashiv,
+            // weather=data.weather,
+        
+    
         matrix = data.matrix;
         weatherElement.innerText = data.weather;
+
         grassCountElement.innerText = data.grassCounter;
         grassLiveCountElement.innerText = data.grassLiveCounter;
+
         grassEaterCountElement.innerText = data.eatCounter;
+
         gishCountElement.innerText = data.gishCounter;
+        gishLiveCountElement.innerText = data.gishLiveCounter;
+
         huntCountElement.innerText = data.huntCounter;
+        huntLiveCountElement.innerText = data.huntLiveCounter;
+
         terminatorCountElement.innerText = data.termCounter;
+
         tankCountElement.innerText = data.tankCounter;
         
         createCanvas(matrix[0].length * side, matrix.length * side)
@@ -55,7 +67,7 @@ function setup() {
                         fill("white");
                     }
                     else if (data.weather == "Գարուն"){
-                        fill("grey");
+                        fill("pink");
                     }
                     
                     rect(j * side, i * side, side, side);
@@ -81,5 +93,5 @@ function setup() {
             }
             }
         }
-    }
+    }   
 }

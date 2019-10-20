@@ -58,6 +58,7 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
             matrix[customY][customX] = 5;
         }
     }
+}
     matrixGenerator(20, 25, 20, 15, 10, 5, 2);
 
     var express = require('express');
@@ -110,8 +111,9 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
 
     let exanak = 0;
     let weather = "Գարուն"
+    setInterval(game, 1000)
 
-    function game() {
+    function game(){
 
         exanak++;
         if (exanak <= 10) {
@@ -121,7 +123,10 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
         } else if (exanak <= 30) {
             weather = "Ձմեռ"
         }
-        else if (exanak > 30) {
+        else if (exanak <=40){
+          weather = "Գարուն"
+        }
+        else if (exanak > 40) {
             exanak = 0
         }
     
@@ -156,7 +161,7 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
                 tankArr[i].eat();
             }
         }
-    }
+    
     let sendData = {
         matrix: matrix,
         grassCounter: grassHashiv,
@@ -172,8 +177,3 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
     io.sockets.emit("data", sendData);
 }
 
-
-
-
-
-setInterval(game, 1000)

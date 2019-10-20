@@ -1,7 +1,7 @@
-var LiveForm = require("./LiveForm.js");
+var LiveForm = require("./LiveForm");
 var random = require("./random.js");
 
-module.exports = class Hunter extends LiveForm {
+module.exports = class Tank extends LiveForm {
     constructor(x, y) {
         super(x,y)
         this.life = 125;
@@ -31,28 +31,26 @@ module.exports = class Hunter extends LiveForm {
             let y = newCell[1];
             matrix[y][x] = 4;            
             let tank = new Tank(x, y);
-            TankArr.push(tank);
+            tankArr.push(tank);
             this.life = 0;
         }
     }
-    spanel() {
+    eat() {
 
-        let emptyCells = this.chooseCell(5);
-        let emptyCells1 = this.chooseCell(2);
-        let emptyCells2 = this.chooseCell(3);
-        let newCell = random(emptyCells.concat(emptyCells1.concat(emptyCells2)));
+        let emptyCells = this.chooseCell(4);
+        let newCell = random(emptyCells);
         if (newCell) {
 
             this.life++;
             let x = newCell[0];
             let y = newCell[1];
-
+            
             matrix[y][x] = 3;
             matrix[this.y][this.x] = 0;
 
-            for (let i in eatArr) {
-                if (eatArr[i].x == x && eatArr[i].y == y) {
-                    eatArr.splice(i, 1)
+            for (let i in huntArr) {
+                if (huntArr[i].x == x && huntArr[i].y == y) {
+                    huntArr.splice(i, 1)
                 }
             }
             this.x = x;
@@ -87,9 +85,9 @@ module.exports = class Hunter extends LiveForm {
     die() {
         matrix[this.y][this.x] = 0;
 
-        for (let i in TankArr) {
-            if (TankArr[i].x == this.x && TankArr[i].y == this.y) {
-                TankArr.splice(i, 1)
+        for (let i in tankArr) {
+            if (tankArr[i].x == this.x && tankArr[i].y == this.y) {
+                tankArr.splice(i, 1)
             }
         }
     }

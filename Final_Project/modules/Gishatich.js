@@ -1,10 +1,9 @@
-var LiveForm = require("./LiveForm.js");
+var LiveForm = require("./LiveForm");
 var random = require("./random");
 
 module.exports = class Gishatich extends LiveForm {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.life = 25;
         this.directions = []
     }
@@ -21,19 +20,9 @@ module.exports = class Gishatich extends LiveForm {
         ];
     }
     chooseCell(character) {
-        this.getNewCoordinates()
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
-    }
+        this.getNewCoordinates();
+        return super.chooseCell(character);
+    } 
     mul() {
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
@@ -42,7 +31,7 @@ module.exports = class Gishatich extends LiveForm {
             let y = newCell[1];
             matrix[y][x] = 3;
             let gishatich = new Gishatich(x, y);
-            GishatichArr.push(gishatich);
+            gishArr.push(gishatich);
             this.life = 0;
         }
     }
@@ -90,9 +79,9 @@ module.exports = class Gishatich extends LiveForm {
     }
     die() {
         matrix[this.y][this.x] = 0;
-        for (let i in GishatichArr) {
-            if (GishatichArr[i].x == this.x && GishatichArr[i].y == this.y) {
-                GishatichArr.splice(i, 1)
+        for (let i in gishArr) {
+            if (gishArr[i].x == this.x && gishArr[i].y == this.y) {
+                gishArr.splice(i, 1)
             }
         }
     }

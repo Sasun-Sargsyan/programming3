@@ -1,4 +1,4 @@
-var LiveForm = require("./LiveForm.js");
+var LiveForm = require("./LiveForm");
 var random = require("./random.js");
 
 

@@ -1,4 +1,4 @@
-var LiveForm = require("./LiveForm.js");
+var LiveForm = require("./LiveForm");
 var random = require("./random.js");
 
 module.exports = class Terminator extends LiveForm {
@@ -42,11 +42,8 @@ module.exports = class Terminator extends LiveForm {
         }
     }
     eat() {
-        let emptyCells = this.chooseCell(2);
-        let emptyCells1 = this.chooseCell(3);
-        let emptyCells2 = this.chooseCell(4);
-        let emptyCells3 = this.chooseCell(5);
-        let newCell = random(emptyCells.concat(emptyCells1.concat(emptyCells2.concat(emptyCells3))));
+        let emptyCells = this.chooseCell(5);
+        let newCell = random(emptyCells);
 
         if (newCell) {
 
@@ -57,9 +54,9 @@ module.exports = class Terminator extends LiveForm {
             matrix[y][x] = 4;
             matrix[this.y][this.x] = 0;
 
-            for (let i in huntArr) {
-                if (huntArr[i].x == x && huntArr[i].y == y) {
-                    huntArr.splice(i, 1)
+            for (let i in tankArr) {
+                if (tankArr[i].x == x && tankArr[i].y == y) {
+                    tankArr.splice(i, 1)
                 }
             }
             this.x = x;
