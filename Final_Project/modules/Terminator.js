@@ -32,7 +32,7 @@ module.exports = class Terminator extends LiveForm {
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
-            matrix[y][x] = 4;
+            matrix[y][x] = 6;
             matrix[this.y][this.x] = 0;
             this.y = y;
             this.x = x;
@@ -51,7 +51,7 @@ module.exports = class Terminator extends LiveForm {
             let x = newCell[0];
             let y = newCell[1];
 
-            matrix[y][x] = 4;
+            matrix[y][x] = 6;
             matrix[this.y][this.x] = 0;
 
             for (let i in tankArr) {
@@ -79,7 +79,7 @@ module.exports = class Terminator extends LiveForm {
             termHashiv++
             let x = newCell[0];
             let y = newCell[1];
-            matrix[y][x] = 4;
+            matrix[y][x] = 6;
             let term = new Terminator(x, y);
             termArr.push(term);
             this.life = 10;

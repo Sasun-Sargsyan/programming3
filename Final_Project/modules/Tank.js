@@ -9,14 +9,14 @@ module.exports = class Tank extends LiveForm {
     }
     getNewCoordinates() {
         this.directions = [
-            [this.x - 2, this.y - 2],
-            [this.x, this.y - 2],
-            [this.x + 2, this.y - 2],
-            [this.x - 2, this.y],
-            [this.x + 2, this.y],
-            [this.x - 2, this.y + 2],
-            [this.x, this.y + 2],
-            [this.x + 2, this.y + 2]
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
         ];
     }
     chooseCell(character) {
@@ -26,10 +26,11 @@ module.exports = class Tank extends LiveForm {
     mul() {
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
+        tankHashiv++
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
-            matrix[y][x] = 4;            
+            matrix[y][x] = 5;            
             let tank = new Tank(x, y);
             tankArr.push(tank);
             this.life = 0;
@@ -45,7 +46,7 @@ module.exports = class Tank extends LiveForm {
             let x = newCell[0];
             let y = newCell[1];
             
-            matrix[y][x] = 3;
+            matrix[y][x] = 5;
             matrix[this.y][this.x] = 0;
 
             for (let i in huntArr) {
@@ -56,7 +57,7 @@ module.exports = class Tank extends LiveForm {
             this.x = x;
             this.y = y;
 
-            if (this.life >= 17) {
+            if (this.life >= 130) {
                 this.mul();
             }
         }
@@ -72,7 +73,7 @@ module.exports = class Tank extends LiveForm {
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];           
-            matrix[y][x] = 4;
+            matrix[y][x] = 5;
             matrix[this.y][this.x] = 0;
             this.y = y;
             this.x = x;

@@ -4,6 +4,7 @@ var Gishatich = require("./modules/Gishatich.js");
 var Hunter = require("./modules/Hunter.js");
 var Terminator = require("./modules/Terminator.js");
 var Tank = require("./modules/Tank.js");
+var Vagr = require("./modules/Vagr.js");
 let random = require('./modules/random');
 
 grassArr = [];
@@ -12,6 +13,7 @@ gishArr = [];
 huntArr = [];
 termArr = [];
 tankArr = [];
+vagrArr = [];
 matrix = [];
 
 grassHashiv = 0;
@@ -20,8 +22,9 @@ gishHashiv = 0;
 huntHashiv = 0;
 termHashiv = 0;
 tankHashiv = 0;
+vagrHashiv = 0;
 
-function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
+function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank , vagr) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o < matrixSize; o++) {
@@ -57,9 +60,14 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
             let customY = Math.floor(random(matrixSize));
             matrix[customY][customX] = 5;
         }
+        for (let i = 0; i < vagr; i++) {
+            let customX = Math.floor(random(matrixSize));
+            let customY = Math.floor(random(matrixSize));
+            matrix[customY][customX] = 7;
+        }
     }
 }
-    matrixGenerator(20, 25, 20, 15, 10, 5, 2);
+    matrixGenerator(50, 25, 20, 15, 10, 5, 2,8);
 
     var express = require('express');
     var app = express();
@@ -85,7 +93,7 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
                 }
                 else if (matrix[y][x] == 3) {
                     var gish = new Gishatich(x, y);
-                    gishArr.push(hunt);
+                    gishArr.push(gish);
                     gishHashiv++
                 }
                 else if (matrix[y][x] == 4) {
@@ -102,6 +110,11 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
                     var tank = new Tank(x, y);
                     tankArr.push(tank);
                     tankHashiv++
+                }
+                else if (matrix[y][x] == 7) {
+                    var vagr = new Vagr(x, y);
+                    vagrArr.push(vagr);
+                    vagrHashiv++
                 }
             }
         }
@@ -161,16 +174,28 @@ function matrixGenerator(matrixSize, grass, eat, gish, hunt, term, tank) {
                 tankArr[i].eat();
             }
         }
+        if (vagrArr[0] !== undefined) {
+            for (var i in vagrArr) {
+                vagrArr[i].eat();
+            }
+        }
     
     let sendData = {
         matrix: matrix,
         grassCounter: grassHashiv,
         grassLiveCounter: grassArr.length,
         eatCounter: eatHashiv,
+        eatLiveCounter: eatArr.length,
         gishCounter: gishHashiv,
+        gishLiveCounter: gishArr.length,
         huntCounter: huntHashiv,
+        huntLiveCounter: huntArr.length,
         termCounter: termHashiv,
+        termLiveCounter: termArr.length,
         tankCounter: tankHashiv,
+        tankLiveCounter:tankArr.length,
+        vagrCounter: vagrHashiv,
+        vagrLiveCounter: vagrArr.length,
         weather: weather,
     }
 

@@ -1,11 +1,10 @@
 var LiveForm = require("./LiveForm");
-var random = require("./random");
+var random = require("./random.js");
 
 module.exports = class Gishatich extends LiveForm {
     constructor(x, y) {
         super(x, y);
-        this.life = 25;
-        this.directions = []
+        this.life = 20;
     }
     getNewCoordinates() {
         this.directions = [
@@ -23,48 +22,13 @@ module.exports = class Gishatich extends LiveForm {
         this.getNewCoordinates();
         return super.chooseCell(character);
     } 
-    mul() {
-        let emptyCells = this.chooseCell(0);
-        let newCell = random(emptyCells);
-        if (newCell) {
-            let x = newCell[0];
-            let y = newCell[1];
-            matrix[y][x] = 3;
-            let gishatich = new Gishatich(x, y);
-            gishArr.push(gishatich);
-            this.life = 0;
-        }
-    }
-    eat()  {
-        let emptyCells = this.chooseCell(2);
-        let newCell = random(emptyCells);
-
-        if (newCell) {
-            this.life++;
-            let x = newCell[0];
-            let y = newCell[1];
-            matrix[y][x] = 3;
-            matrix[this.y][this.x] = 0;
-            for (let i in eatArr) {
-                if (eatArr[i].x == x && eatArr[i].y == y) {
-                    eatArr.splice(i, 1)
-                }
-            }
-            this.x = x;
-            this.y = y;
-            if (this.life >= 17) {
-                this.mul();
-            }
-        }
-        else {
-            this.move()
-        }
-    }
     move() {
         this.life--;
-        let emptyCells = this.chooseCell(0);
-        let emptyCells1 = this.chooseCell(1);
-        let newCell = random(emptyCells.concat(emptyCells1));
+        let emptyCells1 = this.chooseCell(0);
+        let emptyCells2 = this.chooseCell(1);
+        let emptyCells = emptyCells1.concat(emptyCells2)
+        let newCell = random(emptyCells);
+        
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
@@ -75,6 +39,50 @@ module.exports = class Gishatich extends LiveForm {
         }
         if (this.life < 0) {
             this.die();
+        }
+    }
+    eat() {
+        let emptyCells = this.chooseCell(2);
+        let newCell = random(emptyCells);
+
+        if (newCell) {
+
+            this.life++;
+            let x = newCell[0];
+            let y = newCell[1];
+
+            matrix[y][x] = 3;
+            matrix[this.y][this.x] = 0;
+
+            for (let i in eatArr) {
+                if (eatArr[i].x == x && eatArr[i].y == y) {
+                    eatArr.splice(i, 1)
+                }
+            }
+            this.x = x;
+            this.y = y;
+
+            if (this.life >= 10) {
+                this.mul();
+            }
+        }
+        else {
+            this.move()
+        }
+    }
+    mul() {
+        
+        let emptyCells = this.chooseCell(0);
+        let emptyCells1 = this.chooseCell(1);
+        let newCell = random(emptyCells.concat(emptyCells1));
+        if (newCell) {
+            gishHashiv++
+            let x = newCell[0];
+            let y = newCell[1];
+            matrix[y][x] = 3;
+            let gish = new Gishatich(x, y);
+            gishArr.push(gish);
+            this.life = 10;
         }
     }
     die() {
